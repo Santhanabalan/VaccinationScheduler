@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+<body>
+    <h1>This is the home HomePage</h1>
+    {% if request.user.is_authenticated %}
+        <p>Your username is <b>{{ request.user.username }}</b></p>
+    {% else %}
+        <p>You are a guest.</p>
+    {% endif %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
