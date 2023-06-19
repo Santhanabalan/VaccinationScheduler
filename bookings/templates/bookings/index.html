@@ -15,5 +15,28 @@
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'signup' %}">Signup</a>
     <a href="{% url 'logout' %}">Logout</a>
+    <br><br>
+
+    <form method="GET" action="{% url 'home' %}">
+        <input type="text" name="query" placeholder="Search for Vaccination Center">
+        <button type="submit">Search</button>
+    </form>
+    <form method="GET" action="{% url 'home' %}">
+        <button type="submit">Reset</button>
+    </form>
+
+    <h2>Vaccination Centers:</h2>
+    <ul>
+        {% for center in centers %}
+            <li>
+                <strong>{{ center.name }}</strong><br>
+                Address: {{ center.address }}<br>
+                Working Hours: {{ center.from_time }} - {{ center.to_time }}
+                <a href="{% url 'book_slot' center.id %}">Book a Slot</a>
+            </li>
+        {% empty %}
+            <li>No vaccination centers found</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
