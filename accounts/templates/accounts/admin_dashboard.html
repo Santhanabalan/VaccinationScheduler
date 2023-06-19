@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <ul>
+        {% for center in vaccination_centers %}
+            <li>
+                <a href="{% url 'center_details' center.id %}">{{ center.name }}</a>
+                <form method="post" action="{% url 'remove_vaccination_center' center.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No vaccination centers available</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_vaccination_center' %}">Add Vaccination Center</a>
+</body>
+</html>

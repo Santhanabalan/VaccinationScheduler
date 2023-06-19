@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vaccination Center Details</title>
+</head>
+<body>
+    <h1>{{ vaccination_center.name }}</h1>
+    <p>Address: {{ vaccination_center.address }}</p>
+    <p>Working Hours: {{ vaccination_center.from_time }} - {{ vaccination_center.to_time }}</p>
+
+    <h2>Bookings:</h2>
+    <ul>
+        {% for booking in bookings %}
+            <li>{{ booking.user.username }} - {{ booking.slot.date }}</li>
+        {% empty %}
+            <li>No bookings found</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'admin_dashboard' %}">Back to Admin Dashboard</a>
+    <form method="post" action="{% url 'remove_vaccination_center' vaccination_center.id %}">
+        {% csrf_token %}
+        <button type="submit">Remove this vaccination Center</button>
+    </form>
+</body>
+</html>
