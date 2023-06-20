@@ -2,10 +2,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.shortcuts import render, redirect
 from bookings.models import VaccinationCenter,Booking,VaccinationSlot
-from .forms import VaccinationCenterForm,VaccinationSlotForm
+from .forms import VaccinationCenterForm,VaccinationSlotForm,ProfileForm
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from datetime import timedelta, date
 
 def user_signup(request):
     if request.method == 'POST':
@@ -138,4 +139,35 @@ def add_slot(request, center_id):
     }
 
     return render(request, 'accounts/add_slot.html', context)
+
+@login_required
+def profile(request):
+    user = request.user
+    bookings = Booking.objects.filter(user=user)
+
+    context = {
+        'user': user,
+        'bookings': bookings,
+    }
+    return render(request, 'accounts/profile.html', context)
+
+@login_required
+def edit_profile(request):
+    profile = request.user
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+    return render(request, 'accounts/edit_profile.html', context)
 

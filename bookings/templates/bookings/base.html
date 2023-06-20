@@ -18,7 +18,7 @@
           <li><a href="{% url 'admin_login' %}"><i class="fas fa-user-shield"></i> Admin Login</a></li>
         {% endif %}
         {% if request.user.is_authenticated %}
-          <li><i class="fa-solid fa-user"></i> {{ request.user.username }}</li>
+          <li><a href="{% url 'profile' %}"><i class="fa-solid fa-user"></i> {{ request.user.username }}</a></li>
           <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>  
         {% else %}
           <li><a href="{% url 'signup' %}"><i class="fa-solid fa-user-plus"></i> Signup</a></li>

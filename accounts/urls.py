@@ -11,4 +11,6 @@ urlpatterns = [
     path('admin/vaccination_centers/remove/<int:center_id>/', views.remove_vaccination_center, name='remove_vaccination_center'),
     path('admin/vaccination_centers/<int:center_id>/', views.center_details, name='center_details'),
     path('admin/vaccination_centers/<int:center_id>/add_slot', views.add_slot, name='add_slot'),
+    path('profile/', views.profile, name='profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]
