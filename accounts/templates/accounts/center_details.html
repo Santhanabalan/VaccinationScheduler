@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vaccination Center Details</title>
-</head>
-<body>
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
     <h1>{{ vaccination_center.name }}</h1>
     <p>Address: {{ vaccination_center.address }}</p>
     <p>Working Hours: {{ vaccination_center.from_time }} - {{ vaccination_center.to_time }}</p>
@@ -16,11 +13,12 @@
             <li>No bookings found</li>
         {% endfor %}
     </ul>
-
+    <a href="{% url 'add_slot' vaccination_center.id %}" class="btn btn-primary">Add Slot</a>
     <a href="{% url 'admin_dashboard' %}">Back to Admin Dashboard</a>
-    <form method="post" action="{% url 'remove_vaccination_center' vaccination_center.id %}">
+    <form class="contact-form" method="post" action="{% url 'remove_vaccination_center' vaccination_center.id %}">
         {% csrf_token %}
+        <div class="form-group">
         <button type="submit">Remove this vaccination Center</button>
+    </div>
     </form>
-</body>
-</html>
+{% endblock content %}

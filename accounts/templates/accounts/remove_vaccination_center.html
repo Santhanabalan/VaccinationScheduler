@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Remove Vaccination Center</title>
-</head>
-<body>
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
     <h1>Remove Vaccination Center</h1>
     <p>Are you sure you want to remove {{ vaccination_center.name }}?</p>
-    <form method="post">
+    <form class="contact-form" method="post">
         {% csrf_token %}
-        <button type="submit">Remove</button>
+        <div class="form-group">
+            <button type="submit">Remove</button>
+        </div>
     </form>
-</body>
-</html>
+    {% endblock content %}

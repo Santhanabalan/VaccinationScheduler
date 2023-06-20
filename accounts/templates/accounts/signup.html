@@ -1,14 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
     <h1>Sign Up</h1>
-    <form method="post">
+    <form class="contact-form" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-</body>
-</html>
+        <h2>Sign Up</h2>
+        {% if form.errors %}
+        <p class="messages">Please correct the errors below:</p>
+        {% endif %}
+        <div class="form-group">
+          <label for="{{ form.username.id_for_label }}">Username:</label>
+          {{ form.username }}
+          {% if form.username.errors %}
+          <p class="messages">{{ form.username.errors }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.password1.id_for_label }}">Password:</label>
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+          <p class="messages">{{ form.password1.errors }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+          <p class="messages">{{ form.password2.errors }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+            <button type="submit">Sign Up</button>
+        </div>
+      </form>
+{% endblock content %}
+
+{% load static %}

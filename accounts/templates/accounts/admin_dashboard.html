@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-</head>
-<body>
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
     <h1>Admin Dashboard</h1>
     <ul>
         {% for center in vaccination_centers %}
             <li>
-                <a href="{% url 'center_details' center.id %}">{{ center.name }}</a>
-                <form method="post" action="{% url 'remove_vaccination_center' center.id %}">
+                <form class="contact-form" method="post" action="{% url 'remove_vaccination_center' center.id %}">
                     {% csrf_token %}
-                    <button type="submit">Remove</button>
+                    <div class="form-group">
+                        <a href="{% url 'center_details' center.id %}">{{ center.name }}</a>
+                        <button type="submit">Remove</button>
+                    </div>
                 </form>
             </li>
         {% empty %}
             <li>No vaccination centers available</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'add_vaccination_center' %}">Add Vaccination Center</a>
-</body>
-</html>
+    <a href="{% url 'add_vaccination_center' %}"><i class="fa-sharp fa-solid fa-plus"> Add Vaccination Center</i></a>
+    {% endblock content %}

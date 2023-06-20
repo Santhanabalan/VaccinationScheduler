@@ -1,29 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Login</title>
-</head>
-<body>
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
     <h1>Admin Login</h1>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
     <h3>Please note that this login for authorized admins only. If you came here by mistake go back to <a href="{% url 'home' %}">Home Page</a></h3>
-    <form method="post">
+    <form class="contact-form" method="post">
         {% csrf_token %}
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+        <h2>Login</h2>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
         </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
         </div>
-        <button type="submit">Login</button>
-    </form>
-</body>
-</html>
+        <div class="form-group">
+            <button type="submit">Login</button>
+        </div>
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+      </form>
+{% endblock content %}
