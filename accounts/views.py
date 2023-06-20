@@ -71,8 +71,20 @@ def add_vaccination_center(request):
             if VaccinationCenter.objects.filter(name=name, address=address).exists():
                 messages.error(request, 'A vaccination center with the same name and address already exists.')
             else:
-                form.save()
-                messages.success(request, 'Vaccination center added successfully.')
+                vaccination_center=form.save()
+                messages.success(request, 'Vaccination center added successfully. Slots are opened for 14 days starting today.')
+
+                start_date = date.today()
+                end_date = start_date + timedelta(days=13)
+                current_date = start_date
+
+                while current_date <= end_date:
+                    if current_date.weekday() != 6: 
+                        VaccinationSlot.objects.create(center=vaccination_center, date=current_date, available_slots=10)
+                    else:
+                        end_date += timedelta(days=1)
+                    current_date += timedelta(days=1)
+
                 return redirect('admin_dashboard')
     else:
         form = VaccinationCenterForm()
