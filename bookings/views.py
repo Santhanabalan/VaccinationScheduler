@@ -1,17 +1,33 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.db.models import Q
+from datetime import datetime
 from .models import VaccinationCenter,VaccinationSlot,Booking
 # Create your views here.
 
 def home(request):
     if request.method == 'GET':
         query = request.GET.get('query', '')
-        centers = VaccinationCenter.objects.filter(name__icontains=query)
+        search_time = request.GET.get('time')        
+        
+        if search_time:
+            search_time = datetime.strptime(search_time, "%H:%M").time()
+            centers = VaccinationCenter.objects.filter(
+                Q(name__icontains=query) | Q(address__icontains=query),
+                Q(from_time__hour__lte=search_time.hour) | 
+                Q(from_time__hour=search_time.hour, from_time__minute__lte=search_time.minute),
+                Q(to_time__hour__gte=search_time.hour) | 
+                Q(to_time__hour=search_time.hour, to_time__minute__gte=search_time.minute)
+        )
+        else:
+            centers = VaccinationCenter.objects.filter(Q(name__icontains=query) | Q(address__icontains=query))
     else:
         centers = VaccinationCenter.objects.all()[:5]
 
     context = {
-        'centers': centers
+        'centers': centers,
+        'search_time':search_time,
+        'query':query
     }
     return render(request, 'bookings/index.html', context)
 

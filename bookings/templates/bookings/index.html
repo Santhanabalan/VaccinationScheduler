@@ -18,7 +18,8 @@
     <br><br>
 
     <form method="GET" action="{% url 'home' %}">
-        <input type="text" name="query" placeholder="Search for Vaccination Center">
+        <input type="text" name="query" placeholder="Search for Vaccination Center" value="{{query}}">
+        <input type="time" name="time" placeholder="Search by time" value="{{search_time}}">
         <button type="submit">Search</button>
     </form>
     <form method="GET" action="{% url 'home' %}">
