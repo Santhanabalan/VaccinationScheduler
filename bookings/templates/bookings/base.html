@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Website</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="navbar">
+      <a class="logo" href="{% url 'home' %}"><i class="fa-solid fa-virus-covid"></i> VaccineScheduler</a>
+    
+      <ul>
+        <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+        {% if request.user.is_staff %}
+          <li><a href="{% url 'admin_dashboard' %}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        {% else %}
+          <li><a href="{% url 'admin_login' %}"><i class="fas fa-user-shield"></i> Admin Login</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+          <li><i class="fa-solid fa-user"></i> {{ request.user.username }}</li>
+          <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>  
+        {% else %}
+          <li><a href="{% url 'signup' %}"><i class="fa-solid fa-user-plus"></i> Signup</a></li>
+          <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    
+    <div class="content">
+        {% block content %}
+
+        {% endblock content %}
+    </div>      
+    
+    <div class="footer">
+      &copy; 2023 VaccineScheduler. All rights reserved.
+    </div>    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const datePicker = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        datePicker.min = today;
+      });
+    </script>
+</body>
+</html>

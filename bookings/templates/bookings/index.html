@@ -1,43 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomePage</title>
-</head>
-<body>
-    <h1>This is the home HomePage</h1>
-    {% if request.user.is_authenticated %}
-        <p>Your username is <b>{{ request.user.username }}</b></p>
-    {% else %}
-        <p>You are a guest.</p>
-    {% endif %}
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'signup' %}">Signup</a>
-    <a href="{% url 'logout' %}">Logout</a>
-    <br><br>
-
-    <form method="GET" action="{% url 'home' %}">
-        <input type="text" name="query" placeholder="Search for Vaccination Center" value="{{query}}">
-        <input type="time" name="time" placeholder="Search by time" value="{{search_time}}">
-        <button type="submit">Search</button>
-    </form>
-    <form method="GET" action="{% url 'home' %}">
-        <button type="submit">Reset</button>
-    </form>
-
-    <h2>Vaccination Centers:</h2>
-    <ul>
-        {% for center in centers %}
-            <li>
-                <strong>{{ center.name }}</strong><br>
-                Address: {{ center.address }}<br>
-                Working Hours: {{ center.from_time }} - {{ center.to_time }}
-                <a href="{% url 'book_slot' center.id %}">Book a Slot</a>
-            </li>
-        {% empty %}
-            <li>No vaccination centers found</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
+        <h1>Welcome to Vaccination Booking</h1>
+        <p>Book your vaccination appointment conveniently and securely.</p>
+        <a href="{% url 'book' %}"><i class="fa-solid fa-shield-virus"> Book Your Vaccine Now </i></a>
+        <h2>Why Choose Us?</h2>
+        <ul>
+          <li>Easy and quick booking process</li>
+          <li>Wide range of vaccination centers</li>
+          <li>Flexible scheduling options</li>
+          <li>Secure and private data handling</li>
+          <li>Friendly and knowledgeable staff</li>
+        </ul>
+      
+        <h2>How It Works</h2>
+        <ol>
+          <li>Search for available vaccination centers and their working hours.</li>
+          <li>Choose a convenient time slot and make a booking.</li>
+          <li>Arrive at the designated center on your scheduled date and time.</li>
+          <li>Present your identification and vaccination details.</li>
+          <li>Receive your vaccination shot from our qualified healthcare professionals.</li>
+          <li>Get your vaccination certificate and follow post-vaccination guidelines.</li>
+        </ol>
+      
+        <p>Stay protected and contribute to the collective effort against COVID-19. Book your vaccination appointment today!</p>  
+{% endblock content %}

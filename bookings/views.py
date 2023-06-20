@@ -6,6 +6,9 @@ from .models import VaccinationCenter,VaccinationSlot,Booking
 # Create your views here.
 
 def home(request):
+    return render(request, 'bookings/index.html')
+
+def book(request):
     if request.method == 'GET':
         query = request.GET.get('query', '')
         search_time = request.GET.get('time')        
@@ -29,7 +32,7 @@ def home(request):
         'search_time':search_time,
         'query':query
     }
-    return render(request, 'bookings/index.html', context)
+    return render(request, 'bookings/book.html', context)
 
 def book_slot(request, center_id):
     center = VaccinationCenter.objects.get(pk=center_id)
