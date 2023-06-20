@@ -5,6 +5,7 @@ from bookings.models import VaccinationCenter,Booking,VaccinationSlot
 from .forms import VaccinationCenterForm
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 
 def user_signup(request):
     if request.method == 'POST':
@@ -46,7 +47,7 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
-@staff_member_required(login_url='/accounts/admin/login')
+@staff_member_required(login_url="admin_login")
 def admin_dashboard(request):
     vaccination_centers = VaccinationCenter.objects.all()
     context = {
@@ -54,13 +55,20 @@ def admin_dashboard(request):
     }
     return render(request, 'accounts/admin_dashboard.html', context)
 
-@staff_member_required(login_url='/accounts/admin/login')
+@staff_member_required(login_url="admin_login")
 def add_vaccination_center(request):
     if request.method == 'POST':
         form = VaccinationCenterForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('admin_dashboard')
+            name = form.cleaned_data['name']
+            address = form.cleaned_data['address']
+            
+            if VaccinationCenter.objects.filter(name=name, address=address).exists():
+                messages.error(request, 'A vaccination center with the same name and address already exists.')
+            else:
+                form.save()
+                messages.success(request, 'Vaccination center added successfully.')
+                return redirect('admin_dashboard')
     else:
         form = VaccinationCenterForm()
     context = {
@@ -68,7 +76,7 @@ def add_vaccination_center(request):
     }
     return render(request, 'accounts/add_vaccination_center.html', context)
 
-@staff_member_required(login_url='/accounts/admin/login')
+@staff_member_required(login_url="admin_login")
 def remove_vaccination_center(request, center_id):
     vaccination_center = VaccinationCenter.objects.get(pk=center_id)
 
@@ -81,7 +89,7 @@ def remove_vaccination_center(request, center_id):
     }
     return render(request, 'accounts/remove_vaccination_center.html', context)
 
-@staff_member_required(login_url='/accounts/admin/login')
+@staff_member_required(login_url="admin_login")
 def center_details(request, center_id):
     vaccination_center = VaccinationCenter.objects.get(pk=center_id)
     slots = VaccinationSlot.objects.filter(center=vaccination_center)
