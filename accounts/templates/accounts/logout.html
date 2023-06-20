@@ -5,7 +5,8 @@
     <form class="contact-form" method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <div class="form-group">
-        <label for="logout">Are you sure, you want to log out?</label>
+        <p>User: {{request.user.username}}</p>
+        <p> Are you sure you want to log out?</p>
         <button name="logout" type="submit">Logout</button>
         </div>
     </form>

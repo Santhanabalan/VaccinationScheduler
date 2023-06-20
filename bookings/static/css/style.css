@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -81,6 +82,17 @@ body {
   line-height: 1.5;
   text-align:justify;
 }
+
+.container {
+  display: flex;
+}
+
+.section1,
+.section2 {
+  flex: 1;
+  padding: 50px;
+}
+
   .contact-form {
     max-width: 400px;
     margin: 0 auto;
@@ -105,8 +117,9 @@ body {
     border-radius: 4px;
   }
 
-  .form-group button {
+  .form-group button, .button {
     padding: 10px 20px;
+    text-decoration: none;
     background-color: #428bca;
     color: #fff;
     border: none;
@@ -114,6 +127,9 @@ body {
     cursor: pointer;
   }
 
+  .button{
+    font-size: small;
+  }
   .form-group button:hover {
     background-color: #3071a9;
   }

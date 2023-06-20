@@ -25,9 +25,12 @@ def user_login(request):
         if user is not None:
             login(request, user)
             return redirect('home')
+        else:
+            messages.error(request, 'Invalid username or password')
+            form = AuthenticationForm()
     else:
          form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'accounts/login.html')
 
 def admin_login(request):
     if request.method == 'POST':
@@ -44,8 +47,10 @@ def admin_login(request):
     return render(request, 'accounts/admin_login.html')
 
 def user_logout(request):
-    logout(request)
-    return redirect('login')
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
+    return render(request, 'accounts/logout.html')
 
 @staff_member_required(login_url="admin_login")
 def admin_dashboard(request):
@@ -96,7 +101,8 @@ def center_details(request, center_id):
     bookings = Booking.objects.filter(slot__in=slots)
     context = {
         'vaccination_center': vaccination_center,
-        'bookings': bookings
+        'bookings': bookings,
+        'slots':slots
     }
     return render(request, 'accounts/center_details.html', context)
 

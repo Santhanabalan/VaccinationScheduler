@@ -4,21 +4,32 @@
     <h1>{{ vaccination_center.name }}</h1>
     <p>Address: {{ vaccination_center.address }}</p>
     <p>Working Hours: {{ vaccination_center.from_time }} - {{ vaccination_center.to_time }}</p>
-
-    <h2>Bookings:</h2>
-    <ul>
-        {% for booking in bookings %}
-            <li>{{ booking.user.username }} - {{ booking.slot.date }}</li>
-        {% empty %}
-            <li>No bookings found</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'add_slot' vaccination_center.id %}" class="btn btn-primary">Add Slot</a>
-    <a href="{% url 'admin_dashboard' %}">Back to Admin Dashboard</a>
-    <form class="contact-form" method="post" action="{% url 'remove_vaccination_center' vaccination_center.id %}">
+    <form class="contact-form">
         {% csrf_token %}
         <div class="form-group">
-        <button type="submit">Remove this vaccination Center</button>
+        <a href="{% url 'add_slot' vaccination_center.id %}" class="button">Add Slot</a>
+        <a href="{% url 'remove_vaccination_center' vaccination_center.id %}" class="button">Remove this Center</a>
     </div>
     </form>
+    <div class="container">
+        <div class="section1">
+            <h2>Bookings: ({{ bookings.count }})</h2>
+            <ul>
+                {% for booking in bookings %}
+                    <li>{{ booking.user.username }} - {{ booking.slot.date }}</li>
+                {% empty %}
+                    <li>No bookings found</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="section2">
+            <h2>Slots: ({{ slots.count }})</h2>
+            <ul>
+              {% for slot in slots %}
+              <li>{{ slot.date }} - Available Slots: {{ slot.available_slots }}</li>
+              {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <a href="{% url 'admin_dashboard' %}"><i class="fa-solid fa-arrow-left"></i> Back to Admin Dashboard</a>
 {% endblock content %}

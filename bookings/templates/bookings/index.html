@@ -3,25 +3,32 @@
 {% block content %}
         <h1>Welcome to Vaccination Booking</h1>
         <p>Book your vaccination appointment conveniently and securely.</p>
-        <a href="{% url 'book' %}"><i class="fa-solid fa-shield-virus"> Book Your Vaccine Now </i></a>
-        <h2>Why Choose Us?</h2>
-        <ul>
-          <li>Easy and quick booking process</li>
-          <li>Wide range of vaccination centers</li>
-          <li>Flexible scheduling options</li>
-          <li>Secure and private data handling</li>
-          <li>Friendly and knowledgeable staff</li>
-        </ul>
-      
-        <h2>How It Works</h2>
-        <ol>
-          <li>Search for available vaccination centers and their working hours.</li>
-          <li>Choose a convenient time slot and make a booking.</li>
-          <li>Arrive at the designated center on your scheduled date and time.</li>
-          <li>Present your identification and vaccination details.</li>
-          <li>Receive your vaccination shot from our qualified healthcare professionals.</li>
-          <li>Get your vaccination certificate and follow post-vaccination guidelines.</li>
-        </ol>
+        <a href="{% url 'book' %}"><i class="fa-solid fa-shield-virus">  </i><b>Book Your Vaccine Now</b></a>
+
+        <div class="container">
+          <div class="section1">
+            <h2>Why Choose Us?</h2>
+            <ul>
+              <li>Easy and quick booking process</li>
+              <li>Wide range of vaccination centers</li>
+              <li>Flexible scheduling options</li>
+              <li>Secure and private data handling</li>
+              <li>Friendly and knowledgeable staff</li>
+            </ul>
+          </div>
+          <div class="section2">
+            <h2>How It Works</h2>
+            <ol>
+              <li>Search for available vaccination centers and their working hours.</li>
+              <li>Choose a convenient time slot and make a booking.</li>
+              <li>Arrive at the designated center on your scheduled date and time.</li>
+              <li>Present your identification and vaccination details.</li>
+              <li>Receive your vaccination shot from our qualified healthcare professionals.</li>
+              <li>Get your vaccination certificate and follow post-vaccination guidelines.</li>
+            </ol>
+          
+          </div>
+        </div>
       
         <p>Stay protected and contribute to the collective effort against COVID-19. Book your vaccination appointment today!</p>  
 {% endblock content %}

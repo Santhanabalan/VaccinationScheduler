@@ -2,10 +2,11 @@
 {% load static %}
 {% block content %}
     <h1>Admin Dashboard</h1>
-    <ul>
+    <p>List of available centers</p>
+    <ul style="list-style-type: none;">
         {% for center in vaccination_centers %}
             <li>
-                <form class="contact-form" method="post" action="{% url 'remove_vaccination_center' center.id %}">
+                <form class="contact-form" method="get" action="{% url 'remove_vaccination_center' center.id %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <a href="{% url 'center_details' center.id %}">{{ center.name }}</a>
@@ -17,5 +18,5 @@
             <li>No vaccination centers available</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'add_vaccination_center' %}"><i class="fa-sharp fa-solid fa-plus"> Add Vaccination Center</i></a>
+    <a href="{% url 'add_vaccination_center' %}"><i class="fa-sharp fa-solid fa-plus"></i><b>Add Vaccination Center</b></a>
     {% endblock content %}
