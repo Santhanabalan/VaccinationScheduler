@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.shortcuts import render, redirect
 from bookings.models import VaccinationCenter,Booking,VaccinationSlot
-from .forms import VaccinationCenterForm
+from .forms import VaccinationCenterForm,VaccinationSlotForm
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -99,4 +99,25 @@ def center_details(request, center_id):
         'bookings': bookings
     }
     return render(request, 'accounts/center_details.html', context)
+
+@staff_member_required(login_url="admin_login")
+def add_slot(request, center_id):
+    center = VaccinationCenter.objects.get(pk=center_id)
+
+    if request.method == 'POST':
+        slot_form = VaccinationSlotForm(request.POST)
+        if slot_form.is_valid():
+            slot = slot_form.save(commit=False)
+            slot.center = center
+            slot.save()
+            return redirect('center_details', center_id=center.id)
+    else:
+        slot_form = VaccinationSlotForm()
+
+    context = {
+        'center': center,
+        'slot_form': slot_form
+    }
+
+    return render(request, 'accounts/add_slot.html', context)
 
