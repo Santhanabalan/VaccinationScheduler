@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.db.models import Q
 from datetime import datetime
 from .models import VaccinationCenter,VaccinationSlot,Booking
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
@@ -59,3 +60,29 @@ def book_slot(request, center_id):
         'center': center,
     }
     return render(request, 'bookings/book_slot.html', context)
+
+@login_required(login_url='login')
+def remove_booking(request, booking_id):
+    booking = Booking.objects.get(id=booking_id)
+    if booking.user == request.user or request.user.is_staff:
+        previous_page = request.META.get('HTTP_REFERER')
+
+        if request.method == 'POST':
+            slot = booking.slot
+            slot.available_slots += 1
+            slot.save()
+            booking.delete()
+            user = request.user
+            if user.is_staff:
+                return redirect('admin_dashboard')
+            else:
+                return redirect('profile')
+
+        context = {
+            'booking': booking,
+            'previous_page': previous_page
+        }
+        return render(request, 'bookings/remove_booking_confirm.html', context)
+    else:
+        return redirect('home')
+

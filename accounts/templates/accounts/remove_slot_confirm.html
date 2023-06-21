@@ -1,0 +1,16 @@
+{% extends 'bookings/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Confirm Slot Removal</h1>
+<p>Are you sure you want to remove the following slot?</p>
+<p>Slot ID: {{ slot.id }}</p>
+<p>Date: {{ slot.date }}</p>
+<p>Available Slots: {{ slot.available_slots }}</p>
+
+<form method="post" action="{% url 'remove_slot' slot.id %}">
+    {% csrf_token %}
+    <button class="button" type="submit">Remove Slot</button>
+</form>
+
+<a class="button" href="{{ previous_page }}">Cancel</a>
+{% endblock content %}

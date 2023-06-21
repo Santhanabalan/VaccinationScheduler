@@ -140,7 +140,25 @@ def add_slot(request, center_id):
 
     return render(request, 'accounts/add_slot.html', context)
 
-@login_required
+@staff_member_required(login_url="admin_login")
+def remove_slot(request, slot_id):
+    slot = VaccinationSlot.objects.get(id=slot_id)
+    previous_page = request.META.get('HTTP_REFERER')
+
+    if slot is not None:
+        if request.method == 'POST':
+            slot.delete()
+            return redirect('admin_dashboard')
+
+        context = {
+            'slot': slot,
+            'previous_page': previous_page
+        }
+        return render(request, 'accounts/remove_slot_confirm.html', context)
+    else:
+        return redirect('admin_dashboard')
+    
+@login_required(login_url='login')
 def profile(request):
     user = request.user
     bookings = Booking.objects.filter(user=user)

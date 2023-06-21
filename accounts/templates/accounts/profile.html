@@ -11,6 +11,7 @@
 <ul>
   {% for booking in bookings %}
   <li>{{ booking.slot.date }} - Vaccination Center: {{ booking.slot.center.name }}</li>
+  <a class="button" href="{% url 'remove_booking' booking_id=booking.id %}">Remove</a>
   {% endfor %}
 </ul>
 {% else %}
