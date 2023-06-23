@@ -1,13 +1,9 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
     <h1>Login</h1>
     <form class="contact-form" method="post">
         {% csrf_token %}
         <h2>Login</h2>
-        {% if error_message %}
-        <p class="error-message">{{ error_message }}</p>
-        {% endif %}
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required>
@@ -19,12 +15,8 @@
         <div class="form-group">
             <button type="submit">Login</button>
         </div>
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <div class="form-group">
+          <p>New to this site? <a href="{% url 'signup' %}">Click Here</a> to Sign Up!</p>
+        </div>
       </form>
 {% endblock content %}

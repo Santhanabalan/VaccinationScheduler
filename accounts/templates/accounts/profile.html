@@ -1,10 +1,15 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
 <h2>Profile Details</h2>
 <p>Username: {{user.username}}</p>
+
+{% if user.get_full_name %}
 <p>Full Name: {{ user.get_full_name }}</p>
+{% endif %}
+
+{% if user.email %}
 <p>Email: {{ user.email }}</p>
+{% endif %}
 
 <h2>Bookings</h2>
 {% if bookings %}
@@ -17,6 +22,6 @@
 {% else %}
 <p>No bookings found.</p>
 {% endif %}
-
+<p>You can add Email and full name to your profile by clicking Edit Profile.</p>
 <a class="button" href="{% url 'edit_profile' %}">Edit Profile</a>
 {% endblock content %}

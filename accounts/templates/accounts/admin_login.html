@@ -1,5 +1,4 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
     <h1>Admin Login</h1>
     <h3>Please note that this login for authorized admins only. If you came here by mistake go back to <a href="{% url 'home' %}">Home Page</a></h3>
@@ -17,12 +16,5 @@
         <div class="form-group">
             <button type="submit">Login</button>
         </div>
-        {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
       </form>
 {% endblock content %}

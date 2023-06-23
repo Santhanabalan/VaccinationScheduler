@@ -1,5 +1,4 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
     <h1>Admin Dashboard</h1>
     <p>List of available centers</p>
@@ -8,9 +7,9 @@
             <li>
                 <form class="contact-form" method="get" action="{% url 'remove_vaccination_center' center.id %}">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <a href="{% url 'center_details' center.id %}">{{ center.name }}</a>
-                        <button type="submit">Remove</button>
+                    <div style="padding-right: 50px;" class="form-group">
+                        <a class="button" style="background-color: #333;" href="{% url 'center_details' center.id %}">{{ center.name }}</a>
+                        <button style="background-color: var(--warning);" type="submit">Remove</button>
                     </div>
                 </form>
             </li>

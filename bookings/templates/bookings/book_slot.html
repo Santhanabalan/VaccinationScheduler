@@ -1,5 +1,4 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
     <h1>Book a Slot</h1>
     <h1>Center Name: {{ center.name }}</h1>
@@ -15,12 +14,8 @@
         <div class="form-group">
             <button type="submit">Book Slot</button>
         </div>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }} </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        <div class="form-group">
+            <p>To check your bookings click on your <a href="{% url 'profile' %}">Profile</a> on the navbar.</p>
+        </div>
     </form>
 {% endblock content %}

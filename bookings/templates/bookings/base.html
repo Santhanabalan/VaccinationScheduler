@@ -31,17 +31,22 @@
         {% block content %}
 
         {% endblock content %}
+        {% if messages %}
+        <div class="contact-form">
+          <div class="form-group">
+            <ul class="messages">
+              {% for message in messages %}
+                  <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          </div>
+        </div>
+      {% endif %}
     </div>      
     
     <div class="footer">
       &copy; 2023 VaccineScheduler. All rights reserved.
     </div>    
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const datePicker = document.getElementById('date');
-        const today = new Date().toISOString().split('T')[0];
-        datePicker.min = today;
-      });
-    </script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
     <h1>{{ vaccination_center.name }}</h1>
     <p>Address: {{ vaccination_center.address }}</p>
@@ -18,6 +17,7 @@
                 {% for booking in bookings %}
                     <li>{{ booking.user.username }} - {{ booking.slot.date }}</li>
                     <a class="button" href="{% url 'remove_booking' booking_id=booking.id %}">Remove</a>
+                    <br><br>
                 {% empty %}
                     <li>No bookings found</li>
                 {% endfor %}
@@ -29,6 +29,7 @@
               {% for slot in slots %}
               <li>{{ slot.date }} - Available Slots: {{ slot.available_slots }}</li>
               <a class="button" href="{% url 'remove_slot' slot_id=slot.id %}">Remove</a>
+              <br><br>
               {% endfor %}
             </ul>
         </div>

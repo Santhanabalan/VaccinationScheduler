@@ -1,5 +1,4 @@
 {% extends 'bookings/base.html' %}
-{% load static %}
 {% block content %}
     <h1>Remove Vaccination Center</h1>
     <p>Are you sure you want to remove the vaccination center - {{ vaccination_center.name }}?</p>
@@ -9,4 +8,4 @@
             <button type="submit">Remove</button>
         </div>
     </form>
-    {% endblock content %}
+{% endblock content %}
