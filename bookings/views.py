@@ -19,11 +19,11 @@ def book(request):
             search_time = datetime.strptime(search_time, "%H:%M").time()
             centers = VaccinationCenter.objects.filter(
                 Q(name__icontains=query) | Q(address__icontains=query),
-                Q(from_time__hour__lte=search_time.hour) | 
-                Q(from_time__hour=search_time.hour, from_time__minute__lte=search_time.minute),
-                Q(to_time__hour__gte=search_time.hour) | 
-                Q(to_time__hour=search_time.hour, to_time__minute__gte=search_time.minute)
-        )
+                (
+                    Q(from_time__lte=search_time) &
+                    Q(to_time__gte=search_time)
+                )
+            )
         else:
             centers = VaccinationCenter.objects.filter(Q(name__icontains=query) | Q(address__icontains=query))
     else:
