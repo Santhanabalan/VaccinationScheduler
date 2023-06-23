@@ -88,4 +88,31 @@ def remove_booking(request, booking_id):
         return render(request, 'bookings/remove_booking_confirm.html', context)
     else:
         return redirect('home')
+    
+def custom_page_not_found_view(request, exception):
+    context = {
+        'error_title':'404',
+        'error_message':"It looks like you've reached a URL that doesn't exist. Please use the navigation bar above to find your way back to our website."
+    }
+    return render(request, "bookings/error.html",context)
 
+def custom_error_view(request, exception=None):
+    context = {
+        'error_title':'500',
+        'error_message':"You found a technical glitch! Please retry again..."
+    }
+    return render(request, "bookings/error.html",context)
+
+def custom_permission_denied_view(request, exception=None):
+    context = {
+        'error_title':'403',
+        'error_message':"It seems you don't have necessary permissions."
+    }
+    return render(request, "bookings/error.html",context)
+
+def custom_bad_request_view(request, exception=None):
+    context = {
+        'error_title':'400',
+        'error_message':"You've made a bad request. Please navigate to home."
+    }
+    return render(request, "bookings/error.html",context)

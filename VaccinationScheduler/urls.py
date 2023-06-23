@@ -23,3 +23,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
 ]
+
+handler404 = 'bookings.views.custom_page_not_found_view'
+handler500 = 'bookings.views.custom_error_view'
+handler403 = 'bookings.views.custom_permission_denied_view'
+handler400 = 'bookings.views.custom_bad_request_view'
