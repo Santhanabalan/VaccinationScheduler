@@ -36,7 +36,7 @@ Check out the live Vaccination Booking Website [here](https://covax.santhanabala
 3. **Database Setup**
    - Run the following command to apply database migrations:
      ```
-     python manage.py makemigrations
+     python manage.py makemigrations bookings
      python manage.py migrate
      ```
 
